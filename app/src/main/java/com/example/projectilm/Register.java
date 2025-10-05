@@ -49,5 +49,9 @@ public class Register extends AppCompatActivity {
 
         }
     }
+    public void goHome(View view){
+        Intent H0me = new Intent(this,MainActivity.class);
+        startActivity(H0me);
+    }
 
 }
