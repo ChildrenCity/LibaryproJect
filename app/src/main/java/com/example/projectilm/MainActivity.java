@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         Intent Login = new Intent(this, MainActivity.class);
         startActivity(Login);
     }
+    public void clickview(View view){
+        Intent Login = new Intent(this, ViewData.class);
+        startActivity(Login);
+    }
 
 
 }
