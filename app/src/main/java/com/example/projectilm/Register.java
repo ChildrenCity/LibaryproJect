@@ -39,7 +39,7 @@ public class Register extends AppCompatActivity {
         }else{
             boolean insertSucess = db.insertUser(Name, Password);
             if(insertSucess){
-                Toast.makeText(Register.this,"สมัครสมาขิกสำเร็จ",Toast.LENGTH_LONG).show();
+                Toast.makeText(Register.this,"สมัครสมาขิกสำเร็จsasda",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
             }else{
