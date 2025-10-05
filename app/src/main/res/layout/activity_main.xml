@@ -11,7 +11,7 @@
         android:id="@+id/textView2"
         android:layout_width="203dp"
         android:layout_height="48dp"
-        android:text="Hello World!"
+        android:text="Welcome to page"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
