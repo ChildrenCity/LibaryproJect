@@ -23,8 +23,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS = "CREATE TABLE " + TABLE_NAME +
                 "(ID INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                "COL_Name TEXT," +
-                "COL_Password TEXT)";
+                COL_Name+" TEXT," +
+                COL_Password +"TEXT)";
         db.execSQL(CREATE_USERS);
 
     }
@@ -51,7 +51,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean checkUsernamePassword(String Username, String Password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME, "USERNAME = ? AND PASSWORD = ?", new String[]{Username, Password});
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME, COL_Name +"= ? AND" +COL_Password +"= ?", new String[]{Username, Password});
 
         if (count > 0){
             return true;
