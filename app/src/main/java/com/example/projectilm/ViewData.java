@@ -17,7 +17,7 @@ public class ViewData extends AppCompatActivity {
     TextView tvshowdb;
     DataBaseHelper dbh;
 
-    Cursor students;
+    Cursor Customer;
 
 
     @Override
@@ -26,23 +26,25 @@ public class ViewData extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_data);
 
-        tvshowdb=findViewById(R.id.button4);
-        dbh=new DataBaseHelper(this);
-        students = dbh.student();
+        tvshowdb=findViewById(R.id.textView4);
+        dbh = new DataBaseHelper(this);
+        Customer = dbh.getAllUsers();
 
         if
-        (students.getCount()==0){
+        (Customer.getCount()==0){
             ShowInfo("Message","No Data");
         }else{
-            StringBuffer datBuff=new StringBuffer();
-            while (students.moveToNext()){
-                datBuff.append("รหัส :" students.getString(0)+"\n");
-                datBuff.append("username :" students.getString(1)+"\n");
-                datBuff.append("password :" students.getString(2)+"\n");
-                datBuff.append("__________________________________________________" students.getString(3)+"\n");
+            StringBuffer datBuff = new StringBuffer();
+
+            while (Customer.moveToNext()) {
+                datBuff.append("รหัส : " + Customer.getString(0) + "\n");
+                datBuff.append("ชื่อผู้ใช้ : " + Customer.getString(1) + "\n");
+                datBuff.append("รหัสผ่าน : " + Customer.getString(2) + "\n");
+                datBuff.append("__________________________________________________\n\n");
             }
+
             tvshowdb.setMovementMethod(new ScrollingMovementMethod());
-            tvshowdb.setText("รายชื่อผู้ใช้");
+            tvshowdb.setText("ชื้อผู้ใช้\n\n" + datBuff);
         }
     }
     public void ShowInfo(String title,String msg){
@@ -56,4 +58,5 @@ public class ViewData extends AppCompatActivity {
         Intent Login = new Intent(this, MainActivity.class);
         startActivity(Login);
     }
+
 }
