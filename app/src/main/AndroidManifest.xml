@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Projectilm">
         <activity
+            android:name=".ViewData"
+            android:exported="false" />
+        <activity
             android:name=".MainWindow"
             android:exported="false" />
         <activity
