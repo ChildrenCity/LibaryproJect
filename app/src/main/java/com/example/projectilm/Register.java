@@ -42,6 +42,7 @@ public class Register extends AppCompatActivity {
                 Toast.makeText(Register.this,"สมัครสมาขิกสำเร็จ",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
+                finish();
             }else{
                 Toast.makeText(Register.this,"ไม่สามารถสมัครข้อมูลได้",Toast.LENGTH_LONG).show();
             }

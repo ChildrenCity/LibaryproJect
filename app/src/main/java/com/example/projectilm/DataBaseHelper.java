@@ -11,6 +11,7 @@ import android.renderscript.Sampler;
 public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "UserDB.db";
     public static final String TABLE_NAME = "Users";
+    public static final String COL_ID ="ID";
     public static final String COL_Name = "Username";
     public static final String COL_Password = "Password";
 
@@ -21,10 +22,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USERS = "CREATE TABLE " + TABLE_NAME +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                COL_Name+" TEXT," +
-                COL_Password +"TEXT)";
+        String CREATE_USERS = "CREATE TABLE " + TABLE_NAME + " (" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_Name + " TEXT, " +
+                COL_Password + " TEXT)";
         db.execSQL(CREATE_USERS);
 
     }
@@ -51,13 +52,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean checkUsernamePassword(String Username, String Password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME, COL_Name +"= ? AND" +COL_Password +"= ?", new String[]{Username, Password});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_Name + " = ? AND " + COL_Password + " = ?", new String[]{Username, Password});
 
-        if (count > 0){
-            return true;
-        }else {
-            return false;
-        }
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
 
 
     }
