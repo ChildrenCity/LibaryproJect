@@ -38,16 +38,16 @@ public class MainActivity extends AppCompatActivity {
         String password = edtPassLogin.getText().toString();
 
         if (username.isEmpty()||password.isEmpty()){
-            Toast.makeText(MainActivity.this,"กรุณากรอกข้อมูล",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this,"กรุณากรอกข้อมูล",Toast.LENGTH_SHORT).show();
         }else {
             boolean isCheck = db.checkUsernamePassword(username,password);
             if(isCheck){
-                Toast.makeText(MainActivity.this,"ล็อกอินสำเร็จ",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"ล็อกอินสำเร็จ",Toast.LENGTH_SHORT).show();
                 Intent Login = new Intent(this, MainWindow.class);
                 startActivity(Login);
                 finish();
             }else {
-                Toast.makeText(MainActivity.this,"ไม่สามารถสมัครข้อมูลได้",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"ไม่สามารถสมัครข้อมูลได้",Toast.LENGTH_SHORT).show();
             }
         }
     }
