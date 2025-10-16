@@ -35,16 +35,16 @@ public class Register extends AppCompatActivity {
         String Password = edtPas.getText().toString();
 
         if (Name.isEmpty()||Password.isEmpty()){
-            Toast.makeText(Register.this ,"กรุณากรอกข้อมูลให้ครบ",Toast.LENGTH_LONG).show();
+            Toast.makeText(Register.this ,"กรุณากรอกข้อมูลให้ครบ",Toast.LENGTH_SHORT).show();
         }else{
             boolean insertSucess = db.insertUser(Name, Password);
             if(insertSucess){
-                Toast.makeText(Register.this,"สมัครสมาขิกสำเร็จsasda",Toast.LENGTH_LONG).show();
+                Toast.makeText(Register.this,"สมัครสมาขิกสำเร็จsasda",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }else{
-                Toast.makeText(Register.this,"ไม่สามารถสมัครข้อมูลได้",Toast.LENGTH_LONG).show();
+                Toast.makeText(Register.this,"ไม่สามารถสมัครข้อมูลได้",Toast.LENGTH_SHORT).show();
             }
 
         }
