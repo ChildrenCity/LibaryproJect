@@ -11,6 +11,9 @@
         android:id="@+id/textView2"
         android:layout_width="203dp"
         android:layout_height="48dp"
+        android:textSize=""
+        android:fontFamily="@font/smooch"
+        android:textStyle="bold"
         android:text="Welcome to page"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,6 +27,8 @@
         android:id="@+id/textView"
         android:layout_width="68dp"
         android:layout_height="26dp"
+        android:fontFamily="@font/smooch"
+        android:textStyle="bold"
         android:text="LOGIN"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,33 +43,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="@font/smooch"
         android:hint="PassWord"
         android:inputType="textPassword"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.379" />
+        app:layout_constraintVertical_bias="0.379"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/edtUserLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="@font/smooch"
         android:hint="Username"
         android:inputType="text"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.281"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/smooch"
+        android:textStyle="bold"
         android:text="Login"
         android:onClick="logIn"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,6 +91,8 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/smooch"
+        android:textStyle="bold"
         android:text="Register"
         android:onClick="regiSter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,17 +101,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.771" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:text="viewdata"
-        android:onClick="clickview"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
