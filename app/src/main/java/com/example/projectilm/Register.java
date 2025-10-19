@@ -17,7 +17,7 @@ public class Register extends AppCompatActivity {
 
 
     DataBaseHelper db;
-    EditText edtName,edtPas;
+    EditText edtName,edtPas,edtMail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +27,19 @@ public class Register extends AppCompatActivity {
 
         db = new DataBaseHelper(this);
 
+        edtMail = findViewById(R.id.edtemail);
         edtName = findViewById(R.id.edtUSer);
         edtPas = findViewById(R.id.edtPass);
     }
     public void register(View view){
+        String Email = edtMail.getText().toString();
         String Name =edtName.getText().toString();
         String Password = edtPas.getText().toString();
 
         if (Name.isEmpty()||Password.isEmpty()){
             Toast.makeText(Register.this ,"กรุณากรอกข้อมูลให้ครบ",Toast.LENGTH_SHORT).show();
         }else{
-            boolean insertSucess = db.insertUser(Name, Password);
+            boolean insertSucess = db.insertUser(Email,Name, Password);
             if(insertSucess){
                 Toast.makeText(Register.this,"สมัครสมาชิกสำเร็จ!",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this,MainActivity.class);
