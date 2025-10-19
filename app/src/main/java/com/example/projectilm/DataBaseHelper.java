@@ -14,6 +14,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COL_ID = "ID";
     public static final String COL_Name = "Username";
     public static final String COL_Password = "Password";
+    public static final String COL_Email = "Email";  // เพิ่มคอลัมน์ Email
 
     public static final String BOOK_TABLE = "Books";
     public static final String BOOK_ID = "BookID";
@@ -23,7 +24,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String BookImage = "BookImage";
 
     public DataBaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 5);  // เพิ่มเวอร์ชันเป็น 5 เพื่อให้เกิดการอัพเกรด
     }
 
     @Override
@@ -31,6 +32,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         String CREATE_USERS = "CREATE TABLE " + TABLE_NAME + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_Email + " TEXT, " +  // ย้าย Email มาเป็นคอลัมน์แรกหลัง ID
                 COL_Name + " TEXT, " +
                 COL_Password + " TEXT)";
         db.execSQL(CREATE_USERS);
@@ -47,22 +49,55 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("INSERT INTO " + BOOK_TABLE + " (" +
                 BOOK_TITLE + ", " + BOOK_AUTHOR + ", " + BOOK_COST + ", " + BookImage +
-                ") VALUES ('The Odyssey', 'โฮเมอร์ (Homer)', 899, 'odyssey')" +
-                ", ('Don Quixote de la Mancha', 'Miguel de Cervantes Saavedra', 599, 'don_quixote')" );
+                ") VALUES ('The Odyssey', 'Homer', 899, 'odyssey')" +
+                ", ('Don Quixote de la Mancha', 'Miguel de Cervantes Saavedra', 599, 'don_quixote')" +
+                ", ('Divine Comedy', 'Dante Alighieri', 699, 'dante')" +
+                ", ('Call of Cthulhu', 'H.P Lovecraft', 1099, 'nuad')" +
+                ", ('Murder on the Orient Express', 'Agatha Christie', 999, 'murderonorientexpress')" +
+                ", ('Crime and Punishment', 'Fyodor Dostoevsky', 1199, 'crimeandpunish')"
+                );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        if (oldVersion < 5) {  // ถ้าเวอร์ชันเก่ากว่า 5
+            // สร้างตารางชั่วคราวเพื่อเก็บข้อมูลเดิม
+            db.execSQL("CREATE TABLE temp_users AS SELECT * FROM " + TABLE_NAME);
+            // ลบตารางเดิม
+            db.execSQL("DROP TABLE " + TABLE_NAME);
+            // สร้างตารางใหม่พร้อมคอลัมน์ Email ในตำแหน่งใหม่
+            String CREATE_USERS = "CREATE TABLE " + TABLE_NAME + " (" +
+                    COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COL_Email + " TEXT, " +
+                    COL_Name + " TEXT, " +
+                    COL_Password + " TEXT)";
+            db.execSQL(CREATE_USERS);
+            db.execSQL("INSERT INTO " + TABLE_NAME + "(" +
+                    COL_ID + ", " +
+                    COL_Email + ", " +
+                    COL_Name + ", " +
+                    COL_Password +
+                    ") SELECT " +
+                    COL_ID + ", " +
+                    COL_Email + ", " +
+                    COL_Name + ", " +
+                    COL_Password +
+                    " FROM temp_users");
+            // ลบตารางชั่วคราว
+            db.execSQL("DROP TABLE temp_users");
+        }
+
+        // อัพเกรดตาราง Books ตามปกติ
         db.execSQL("DROP TABLE IF EXISTS " + BOOK_TABLE);
         onCreate(db);
     }
 
-    public boolean insertUser(String Username, String Password) {
+    public boolean insertUser(String Username, String Password, String Email) {  // เพิ่ม parameter Email
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_Name, Username);
         values.put(COL_Password, Password);
+        values.put(COL_Email, Email);  // เพิ่ม Email
 
         long result = db.insert(TABLE_NAME, null, values);
         return result != -1;

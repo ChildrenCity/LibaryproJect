@@ -38,8 +38,9 @@ public class ViewData extends AppCompatActivity {
 
             while (Customer.moveToNext()) {
                 datBuff.append("รหัส : " + Customer.getString(0) + "\n");
-                datBuff.append("ชื่อผู้ใช้ : " + Customer.getString(1) + "\n");
-                datBuff.append("รหัสผ่าน : " + Customer.getString(2) + "\n");
+                datBuff.append("อีเมล : " + Customer.getString(1) + "\n");
+                datBuff.append("ชื่อผู้ใช้ : " + Customer.getString(2) + "\n");
+                datBuff.append("รหัสผ่าน : " + Customer.getString(3) + "\n");
                 datBuff.append("__________________________________________________\n\n");
             }
 

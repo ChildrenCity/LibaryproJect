@@ -47,6 +47,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         return books.size();
     }
 
+    public void filterList(ArrayList<Book> filteredList) {
+        books = filteredList;
+        notifyDataSetChanged();
+    }
+
     public static class BookViewHolder extends RecyclerView.ViewHolder {
         TextView title, author, cost;
         ImageView image;
