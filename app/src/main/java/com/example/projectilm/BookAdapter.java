@@ -17,9 +17,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     private Context context;
     private ArrayList<Book> books;
 
-    public BookAdapter(Context context, ArrayList<Book> books) {
+    private String email;
+    public BookAdapter(Context context, ArrayList<Book> books, String email) {
         this.context = context;
         this.books = books;
+        this.email = email;
     }
 
     @NonNull
@@ -36,6 +38,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         holder.author.setText(book.getAuthor());
         holder.cost.setText(book.getCost() + " บาท");
 
+
         int resId = context.getResources().getIdentifier(
                 book.getImageName(), "drawable", context.getPackageName());
         if (resId == 0) resId = R.drawable.ic_launcher_foreground; // กัน crash
@@ -44,6 +47,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, BookDetail.class);
             intent.putExtra("BOOK_TITLE", book.getTitle());
+            intent.putExtra("email", email);
             context.startActivity(intent);
         });
         holder.btnBuy.setOnClickListener(v -> {

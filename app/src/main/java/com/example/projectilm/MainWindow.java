@@ -1,7 +1,7 @@
 package com.example.projectilm;
 
 import android.os.Bundle;
-import android.view.MenuItem;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,23 +20,29 @@ public class MainWindow extends AppCompatActivity {
     androidx.appcompat.widget.SearchView searchView;
 
     BottomNavigationView bottomNavigationView;
+    String email;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
+        email = getIntent().getStringExtra("email");
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.home:
-                    startActivity(new Intent(this, MainWindow.class));
-                    return true;
-                case R.id.favorite:
-                    startActivity(new Intent(this, Favorite.class));
+                    Intent homeIntent = new Intent(this, MainWindow.class);
+                    homeIntent.putExtra("email", email);
+                    startActivity(homeIntent);
                     return true;
                 case R.id.profile:
-                    startActivity(new Intent(this, Profile.class));
+                    Intent profileIntent = new Intent(this, Profile.class);
+                    profileIntent.putExtra("email", email);
+                    startActivity(profileIntent);
                     return true;
+
             }
             return false;
         });
@@ -60,10 +66,11 @@ public class MainWindow extends AppCompatActivity {
         dbHelper = new DataBaseHelper(this);
         bookList = dbHelper.getAllBooks();
 
-        adapter = new BookAdapter(this, bookList);
+        adapter = new BookAdapter(this, bookList,email);
         recyclerBooks.setLayoutManager(new LinearLayoutManager(this));
         recyclerBooks.setAdapter(adapter);
     }
+
 
     private void filterBooks(String text) {
         ArrayList<Book> filteredList = new ArrayList<>();

@@ -30,16 +30,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logIn(View view) {
-        String username = edtUserLogin.getText().toString();
+        String email = edtUserLogin.getText().toString();
         String password = edtPassLogin.getText().toString();
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "กรุณากรอกข้อมูล", Toast.LENGTH_SHORT).show();
         } else {
-            boolean isCheck = db.checkUsernamePassword(username, password);
+            boolean isCheck = db.checkUsernamePassword(email, password);
             if (isCheck) {
-                Toast.makeText(this, "ล็อกอินสำเร็จ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
                 Intent Login = new Intent(this, MainWindow.class);
+                Login.putExtra("email", email);
                 startActivity(Login);
                 finish();
             } else {

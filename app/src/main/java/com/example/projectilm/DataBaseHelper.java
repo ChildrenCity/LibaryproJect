@@ -33,7 +33,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         String CREATE_USERS = "CREATE TABLE " + TABLE_NAME + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL_Email + " TEXT, " +  // ย้าย Email มาเป็นคอลัมน์แรกหลัง ID
+                COL_Email + " TEXT, " +
                 COL_Name + " TEXT, " +
                 COL_Password + " TEXT)";
         db.execSQL(CREATE_USERS);
@@ -105,7 +105,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean checkUsernamePassword(String Username, String Password) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_Name + " = ? AND " + COL_Password + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_Email + " = ? AND " + COL_Password + " = ?",
                 new String[]{Username, Password});
 
         boolean exists = cursor.getCount() > 0;
@@ -132,6 +132,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return bookList;
     }
+    public boolean updateUser(String email, String newUsername, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        if (newUsername != null && !newUsername.isEmpty()) {
+            values.put(COL_Name, newUsername);
+        }
+        if (newPassword != null && !newPassword.isEmpty()) {
+            values.put(COL_Password, newPassword);
+        }
+
+        int result = db.update(TABLE_NAME, values, COL_Email + "=?", new String[]{email});
+        db.close();
+        return result > 0;
+    }
+
     public Cursor getAllUsers() { SQLiteDatabase db = this.getReadableDatabase(); return db.rawQuery("SELECT * FROM " + TABLE_NAME, null); }
     public Cursor getUserByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
