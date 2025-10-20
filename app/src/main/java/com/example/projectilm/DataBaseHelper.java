@@ -82,21 +82,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COL_Name + ", " +
                     COL_Password +
                     " FROM temp_users");
-            // ลบตารางชั่วคราว
+
             db.execSQL("DROP TABLE temp_users");
         }
 
-        // อัพเกรดตาราง Books ตามปกติ
+
         db.execSQL("DROP TABLE IF EXISTS " + BOOK_TABLE);
         onCreate(db);
     }
 
-    public boolean insertUser(String Username, String Password, String Email) {  // เพิ่ม parameter Email
+    public boolean insertUser(String Username, String Password, String Email) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_Name, Username);
         values.put(COL_Password, Password);
-        values.put(COL_Email, Email);  // เพิ่ม Email
+        values.put(COL_Email, Email);  //
 
         long result = db.insert(TABLE_NAME, null, values);
         return result != -1;
@@ -133,4 +133,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return bookList;
     }
     public Cursor getAllUsers() { SQLiteDatabase db = this.getReadableDatabase(); return db.rawQuery("SELECT * FROM " + TABLE_NAME, null); }
+    public Cursor getUserByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_Email + " = ?", new String[]{email});
+    }
+
 }
