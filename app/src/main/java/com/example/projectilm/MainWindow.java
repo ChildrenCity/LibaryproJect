@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.content.Intent;
+
 
 public class MainWindow extends AppCompatActivity {
 
@@ -16,12 +19,29 @@ public class MainWindow extends AppCompatActivity {
     BookAdapter adapter;
     androidx.appcompat.widget.SearchView searchView;
 
+    BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.home:
+                    startActivity(new Intent(this, MainWindow.class));
+                    return true;
+                case R.id.favorite:
+                    startActivity(new Intent(this, Favorite.class));
+                    return true;
+                case R.id.profile:
+                    startActivity(new Intent(this, Profile.class));
+                    return true;
+            }
+            return false;
+        });
 
-        // ค้นหา SearchView และตั้งค่า
+
         searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
@@ -57,4 +77,6 @@ public class MainWindow extends AppCompatActivity {
 
         adapter.filterList(filteredList);
     }
+
+
 }
