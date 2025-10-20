@@ -3,10 +3,8 @@ package com.example.projectilm;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,35 +13,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class BookDetail extends AppCompatActivity {
-    ImageView imageViewBookDetail;
     TextView tvDetailTitle,tvDetail;
     DataBaseHelper dbHelper;
     BottomNavigationView bottomNavigationView;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_book_detail);
+        email = getIntent().getStringExtra("email");
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.home:
-                    startActivity(new Intent(this, MainWindow.class));
-                    return true;
-                case R.id.favorite:
-                    startActivity(new Intent(this, Favorite.class));
+                    Intent homeIntent = new Intent(this, MainWindow.class);
+                    homeIntent.putExtra("email", email);
+                    startActivity(homeIntent);
                     return true;
                 case R.id.profile:
-                    startActivity(new Intent(this, Profile.class));
+                    Intent profileIntent = new Intent(this, Profile.class);
+                    profileIntent.putExtra("email", email);
+                    startActivity(profileIntent);
                     return true;
             }
             return false;
         });
-
-
-
-
-        imageViewBookDetail = findViewById(R.id.imageViewBookDetail);
         tvDetailTitle = findViewById(R.id.tvDetailTitle);
         tvDetail = findViewById(R.id.tvDetail);
 
@@ -55,7 +50,6 @@ public class BookDetail extends AppCompatActivity {
         if (bookTitle != null) {
             SQLiteDatabase db = dbHelper.getReadableDatabase();
             String[] projection = {
-                    "BookImage",
                     "Title",
                     "Description"
             };
@@ -74,21 +68,18 @@ public class BookDetail extends AppCompatActivity {
 
             if (cursor.moveToFirst()) {
 
-                byte[] imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("BookImage"));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("Title"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("Description"));
-
-
-                if (imageBytes != null) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    imageViewBookDetail.setImageBitmap(bitmap);
-                }
-
-
                 tvDetailTitle.setText(title);
                 tvDetail.setText(description);
             }
             cursor.close();
+
         }
+    }
+    public void clickback(View view){
+        Intent back = new Intent(this,MainWindow.class);
+        back.putExtra("email", email);
+        startActivity(back);
     }
 }
