@@ -11,19 +11,36 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class BookDetail extends AppCompatActivity {
     ImageView imageViewBookDetail;
     TextView tvDetailTitle,tvDetail;
     DataBaseHelper dbHelper;
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_book_detail);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.home:
+                    startActivity(new Intent(this, MainWindow.class));
+                    return true;
+                case R.id.favorite:
+                    startActivity(new Intent(this, Favorite.class));
+                    return true;
+                case R.id.profile:
+                    startActivity(new Intent(this, Profile.class));
+                    return true;
+            }
+            return false;
+        });
+
+
 
         // Initialize views
         imageViewBookDetail = findViewById(R.id.imageViewBookDetail);
