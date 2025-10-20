@@ -1,6 +1,7 @@
 package com.example.projectilm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         if (resId == 0) resId = R.drawable.ic_launcher_foreground; // กัน crash
         holder.image.setImageResource(resId);
 
-
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, BookDetail.class);
+            intent.putExtra("BOOK_TITLE", book.getTitle());
+            context.startActivity(intent);
+        });
     }
 
     @Override

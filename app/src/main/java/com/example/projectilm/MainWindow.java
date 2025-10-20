@@ -21,7 +21,6 @@ public class MainWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
 
-        // ค้นหา SearchView และตั้งค่า
         searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override

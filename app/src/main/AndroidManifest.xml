@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Projectilm">
         <activity
+            android:name=".Favorite"
+            android:exported="false" />
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".BookDetail"
+            android:exported="false" />
+        <activity
             android:name=".ViewData"
             android:exported="false" />
         <activity

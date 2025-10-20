@@ -21,7 +21,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String BOOK_TITLE = "Title";
     public static final String BOOK_AUTHOR = "Author";
     public static final String BOOK_COST = "Cost";
-    public static final String BookImage = "BookImage";
+    public static final String BOOKIMAGE = "BookImage";
+    public static final String BOOK_DESCRIPTION = "Description";
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 5);  // เพิ่มเวอร์ชันเป็น 5 เพื่อให้เกิดการอัพเกรด
@@ -43,29 +44,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 BOOK_TITLE + " TEXT, " +
                 BOOK_AUTHOR + " TEXT, " +
                 BOOK_COST + " INTEGER, " +
-                BookImage + " TEXT)";
+                BOOKIMAGE + " TEXT,"+
+                BOOK_DESCRIPTION + " TEXT)";
         db.execSQL(CREATE_BOOK);
 
 
         db.execSQL("INSERT INTO " + BOOK_TABLE + " (" +
-                BOOK_TITLE + ", " + BOOK_AUTHOR + ", " + BOOK_COST + ", " + BookImage +
-                ") VALUES ('The Odyssey', 'Homer', 899, 'odyssey')" +
-                ", ('Don Quixote de la Mancha', 'Miguel de Cervantes Saavedra', 599, 'don_quixote')" +
-                ", ('Divine Comedy', 'Dante Alighieri', 699, 'dante')" +
-                ", ('Call of Cthulhu', 'H.P Lovecraft', 1099, 'nuad')" +
-                ", ('Murder on the Orient Express', 'Agatha Christie', 999, 'murderonorientexpress')" +
-                ", ('Crime and Punishment', 'Fyodor Dostoevsky', 1199, 'crimeandpunish')"
+                BOOK_TITLE + ", " + BOOK_AUTHOR + ", " + BOOK_COST + ", " + BOOKIMAGE +", " + BOOK_DESCRIPTION +
+                ") VALUES ('The Odyssey', 'Homer', 899, 'odyssey',  'The Odyssey หมายถึง บทกวีมหากาพย์กรีกโบราณ ที่แต่งโดยโฮเมอร์ โดยบทกวีเล่าถึงการเดินทางอันยาวนาน 10 ปีของวีรบุรุษกรีกชื่อ โอดิสเซียส เพื่อกลับบ้านหลังสงครามเมืองทรอย\n')" +
+                ", ('Don Quixote de la Mancha', 'Miguel de Cervantes Saavedra', 599, 'don_quixote','ดอนกิโฆเต้ เด ลามันชา เป็นเรื่องราวของ อาลอนโซ กิฮาโน ชายผู้คลั่งไคล้นิยายอัศวินจนตัดสินใจเป็น อัศวินพเนจร ในนาม ดอนกิโฆเต้ โดยมี ซานโช ปันซา ชาวนาผู้ซื่อสัตย์เป็นผู้ติดตาม ทั้งสองออกเดินทางผจญภัย พบเจอกับเหตุการณ์ที่ทั้งขบขันและน่าเศร้า โดยเฉพาะอย่างยิ่งเมื่อดอนกิโฆเต้เข้าใจผิดว่ากังหันลมเป็นยักษ์ เรื่องราวได้ล้อเลียนนิยายอัศวินในยุคโบราณ และจบลงด้วยการที่ดอนกิโฆเต้พ่ายแพ้ในการต่อสู้ ทำให้เขาต้องกลับบ้านและในที่สุดก็กลับมาเป็นอาลอนโซ กิฮาโน เหมือนเดิม และเสียชีวิตในที่สุด ')" +
+                ", ('Divine Comedy', 'Dante Alighieri', 699, 'dante', 'The Divine Comedy เป็นบทกวีมหากาพย์ที่เล่าเรื่องการเดินทางทางจิตวิญญาณของดันเต้ผ่าน 3 ภพ คือ Inferno (นรก), Purgatorio (แดนชำระบาป) และ Paradiso (สวรรค์) การเดินทางเริ่มต้นเมื่อดันเต้หลงทางในป่าและได้รับการช่วยเหลือจากเวอร์จิล กวีชาวโรมัน เพื่อนำทางเขาผ่านแดนหลังความตาย โดยในแต่ละภพจะมีการสำรวจเรื่องราวของบาป การไถ่บาป และความสมบูรณ์แบบที่แตกต่างกันไป')" +
+                ", ('Call of Cthulhu', 'H.P Lovecraft', 1099, 'nuad', 'เสียงเรียกของคธูลู (The Call of Cthulhu) คือเรื่องราวที่ฟรานซิส เวย์แลนด์ เธิร์สตัน ค้นพบเบาะแสจากบันทึกของอาจารย์ผู้ล่วงลับของเขา ซึ่งนำไปสู่การเปิดโปงลัทธิลึกลับและการมีอยู่ของคธูลู สิ่งมีชีวิตโบราณที่ถูกกักขังอยู่ใต้ทะเลลึก')" +
+                ", ('Murder on the Orient Express', 'Agatha Christie', 999, 'murderonorientexpress','Murder on the Orient Express คือ คดีฆาตกรรมบนรถไฟหรู ซึ่งนักสืบชื่อดัง แอร์กูล ปัวโรต์ ได้รับการว่าจ้างให้สืบสวน แต่กลับต้องพบกับเรื่องซับซ้อนเมื่อรถไฟต้องหยุดชะงักเพราะหิมะถล่ม ทำให้ปัวโรต์ต้องรีบหาฆาตกรจากกลุ่มผู้โดยสารทั้ง 13 คน ซึ่งแต่ละคนมีความเกี่ยวข้องกับคดีลักพาตัวเรียกค่าไถ่ในอดีต')" +
+                ", ('Crime and Punishment', 'Fyodor Dostoevsky', 1199, 'crimeandpunish', 'อาชญากรรมและการลงทัณฑ์ (Crime and Punishment) กล่าวถึง ราสโคลนิคอฟ อดีตนักศึกษาผู้ยากจนในเซนต์ปีเตอร์สเบิร์ก ที่ก่อเหตุฆาตกรรมหญิงชราเจ้าของโรงรับจำนำเพื่อนำเงินมาใช้ และเพื่อทดสอบทฤษฎีที่ว่าคนบางคนมีสิทธิ์เหนือกว่าผู้อื่น อย่างไรก็ตาม การฆาตกรรมกลับทำให้เขารู้สึกโดดเดี่ยวและทุกข์ทรมานจากความผิดในใจ นวนิยายติดตามการต่อสู้ภายในจิตใจของเขา การเผชิญหน้ากับนักสืบ พอร์ฟิรี เปโตรวิช และการเดินทางทางศีลธรรมจนท้ายที่สุดเขาตัดสินใจสารภาพและยอมรับโทษ')"
                 );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 5) {  // ถ้าเวอร์ชันเก่ากว่า 5
-            // สร้างตารางชั่วคราวเพื่อเก็บข้อมูลเดิม
+        if (oldVersion < 5) {
             db.execSQL("CREATE TABLE temp_users AS SELECT * FROM " + TABLE_NAME);
-            // ลบตารางเดิม
             db.execSQL("DROP TABLE " + TABLE_NAME);
-            // สร้างตารางใหม่พร้อมคอลัมน์ Email ในตำแหน่งใหม่
             String CREATE_USERS = "CREATE TABLE " + TABLE_NAME + " (" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COL_Email + " TEXT, " +
@@ -125,9 +124,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(BOOK_TITLE));
                 String author = cursor.getString(cursor.getColumnIndexOrThrow(BOOK_AUTHOR));
                 int cost = cursor.getInt(cursor.getColumnIndexOrThrow(BOOK_COST));
-                String image = cursor.getString(cursor.getColumnIndexOrThrow(BookImage));
-
-                bookList.add(new Book(id, title, author, cost, image));
+                String image = cursor.getString(cursor.getColumnIndexOrThrow(BOOKIMAGE));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow(BOOK_DESCRIPTION));
+               bookList.add(new Book(id, title, author, cost, image));
             } while (cursor.moveToNext());
         }
         cursor.close();
