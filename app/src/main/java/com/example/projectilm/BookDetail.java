@@ -42,14 +42,14 @@ public class BookDetail extends AppCompatActivity {
 
 
 
-        // Initialize views
+
         imageViewBookDetail = findViewById(R.id.imageViewBookDetail);
         tvDetailTitle = findViewById(R.id.tvDetailTitle);
         tvDetail = findViewById(R.id.tvDetail);
 
         dbHelper = new DataBaseHelper(this);
 
-        // Get book title from intent
+
         String bookTitle = getIntent().getStringExtra("BOOK_TITLE");
 
         if (bookTitle != null) {
@@ -73,18 +73,18 @@ public class BookDetail extends AppCompatActivity {
             );
 
             if (cursor.moveToFirst()) {
-                // Get book data
+
                 byte[] imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("BookImage"));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("Title"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("Description"));
 
-                // Set image
+
                 if (imageBytes != null) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     imageViewBookDetail.setImageBitmap(bitmap);
                 }
 
-                // Set title and description
+
                 tvDetailTitle.setText(title);
                 tvDetail.setText(description);
             }

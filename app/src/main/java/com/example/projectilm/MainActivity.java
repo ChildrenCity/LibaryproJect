@@ -52,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
         Intent viewdata = new Intent(this, ViewData.class);
         startActivity(viewdata);
     }
+
 }

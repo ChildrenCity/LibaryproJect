@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import android.widget.Button;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
 
@@ -45,6 +46,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             intent.putExtra("BOOK_TITLE", book.getTitle());
             context.startActivity(intent);
         });
+        holder.btnBuy.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ReceiptActivity.class);
+            intent.putExtra("title", book.getTitle());
+            intent.putExtra("author", book.getAuthor());
+            intent.putExtra("cost", book.getCost());
+            intent.putExtra("image", book.getImageName());
+            context.startActivity(intent);
+        });
+
+
     }
 
     @Override
@@ -60,6 +71,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public static class BookViewHolder extends RecyclerView.ViewHolder {
         TextView title, author, cost;
         ImageView image;
+        Button btnBuy;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +79,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             author = itemView.findViewById(R.id.tvAuthor);
             cost = itemView.findViewById(R.id.tvCost);
             image = itemView.findViewById(R.id.imgBook);
+            btnBuy = itemView.findViewById(R.id.btnBuy);
         }
+
     }
+
 }
